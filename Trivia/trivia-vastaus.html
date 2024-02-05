@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React getting started</title>
+  </head>
+  <body>
+    <!-- Root container for react components -->
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      function Trivia() {
+        const [data, setData] = React.useState(null);
+        const [loading, setLoading] = React.useState(true);
+        const [showAnswer, setShowAnswer] = React.useState(false);
+
+        React.useEffect(() => {
+          fetchQuestion();
+        }, []);
+
+        // Uuden kysymyksen hakeminen async/await -funktiolla
+        const fetchQuestion = async () => {
+          setLoading(true);
+          setShowAnswer(false);
+          try {
+            const response = await fetch(
+              "https://opentdb.com/api.php?amount=1"
+            );
+            if (!response.ok) {
+              throw new Error(`HTTP virhe! status: ${response.status}`);
+            }
+            const json = await response.json();
+            setData(json);
+          } catch (error) {
+            console.error("Virhe haettaessa kysymystä:", error);
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        const toggleShowAnswer = () => {
+          setShowAnswer(!showAnswer);
+        };
+
+        return (
+          // kysymyksen näyttäminen on huonosti toteutettu, koska se saattaa olla vaarallista, käytin apuna dangerouslySetInnerHTML -ominaisuutta ja
+          //ohjelmassa on toinenkin ongelma, joka on se, että kysymyksen hakeminen ei toimi montaa kertaa, koska apille lähtee pyyntö, joka painalluksesta ja tämä
+          //kuormittaa apia, jolloin jossain vaiheessa tulee 429 status code, joka tarkoittaa, että pyyntöjä on liikaa
+          //apuna olen käyttänyt tässä tehtävässä luentomateriaaleja, https://www.w3schools.com/, sekä ChatGpt:tä, joka on auttanut minua ymmärtämään asioita paremmin. Ohjelma pitäisi koodata
+          //muotoon, että se hakee 10 kapaletta kysymyksiä ja näyttää ne käyttäjälle, joka painaa nappia, jolloin kysymys vaihtuu, jolloin api kutsuja tulee 10 kertaa
+          //vähemmän ja näin api ei kuormitu. Olisi pitänyt alun alkaenkin lähteä koodaamaan tätä tehtävää tällä tavalla, mutta en tajunnut sitä aluksi.
+          <div>
+            {loading ? (
+              <p>Lataa...</p>
+            ) : data && data.results.length > 0 ? (
+              <div>
+                <h1>Trivia</h1>
+                <p>{data.results[0].question}</p>
+                <button onClick={fetchQuestion}>Next question</button>
+                <button onClick={toggleShowAnswer}>Show answer</button>
+                {showAnswer && <p>{data.results[0].correct_answer}</p>}
+              </div>
+            ) : (
+              <p>Kysymystä ei löytynyt, api saattoi kuormittua liikaa</p>
+            )}
+          </div>
+          //ohjelmassa vaikuttaisi olevan myös bugi, jota en ymmärrä, kysymys näkyy aluksi, mutta vaikka en paina nappia, niin kysymys katoaa ja ikään kuin api kuormittuisi ja kysymys katoaa, vaikka olen sen hetken nähnyt. Välillä toimii moitteetta.
+          //Bugi saattaa liitty liveserveriin, joka ei toimi aina moitteetta. Refreshaamalla sivun, kysymys tulee takaisin välillä.
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(
+        <div>
+          <Trivia />
+        </div>
+      );
+    </script>
+  </body>
+</html>

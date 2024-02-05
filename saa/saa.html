@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React getting started</title>
+  </head>
+  <body>
+    <!-- Root container for react components -->
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      function Weather() {
+        const [data, setData] = React.useState(null);
+        const [loading, setLoading] = React.useState(true);
+
+        React.useEffect(() => {
+          fetchWeather();
+        }, []);
+
+        // Sään hakemin async/await -funktiolla
+        const fetchWeather = async () => {
+          setLoading(true);
+          try {
+            const response = await fetch(
+              "https://api.openweathermap.org/data/2.5/weather?q=HELSINKI&APPID=7cbb624af4d856bef6c561622939814b"
+            );
+            if (!response.ok) {
+              throw new Error(`HTTP virhe! status: ${response.status}`);
+            }
+            const json = await response.json();
+            setData(json);
+          } catch (error) {
+            console.error("Virhe haettaessa säätä:", error);
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        return (
+          <div>
+            {loading ? (
+              <p>Lataa...</p>
+            ) : data && data.weather.length > 0 ? (
+              <div>
+                <h1>Sää Helsinki</h1>
+                <p>Temperature: {(data.main.temp - 273.15).toFixed(2)} °C</p>
+                <p>Weather: {data.weather[0].description}</p>
+                <img
+                  src={`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
+                />
+              </div>
+            ) : (
+              <p>Säätä ei voida näyttää</p> //Tässä ei ollut ongelmaa koska api kutsuja sai tehdä 60kpl minuutissa, käytin pohjana aikaisempaa tehtävää ja sään muokkauksen kelvineistä celsiukseksi tein chatGPT:llä. Ternary operaatioissa minulla on vielä opeteltavaa. Syntaksi ei aina avaudu tuleeko true vai false
+            )}
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(
+        <div>
+          <Weather />
+        </div>
+      );
+    </script>
+  </body>
+</html>

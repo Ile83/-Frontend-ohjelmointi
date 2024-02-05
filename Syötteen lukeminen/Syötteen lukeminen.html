@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React getting started</title>
+  </head>
+  <body>
+    <!-- Root container for react components -->
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      function Form() {
+        const [name, setname] = React.useState("{firstname: '', lastname: ''}");
+
+        const handleSubmit = (event) => {
+          event.preventDefault(); // ignores the default action
+          // Do something with form data
+          alert("name: " + name.firstname + " " + name.lastname);
+        };
+
+        return (
+          <div>
+            <form onSubmit={handleSubmit}>
+              <div>Hello</div>
+              <input
+                name="firstname"
+                type="text"
+                value={name.firstname}
+                onChange={handleSubmit}
+              />
+              <input
+                name="lastname"
+                type="text"
+                value={name.lastname}
+                onChange={handleSubmit}
+              />
+              <button type="submit">Send</button>
+            </form>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<Form />);
+    </script>
+  </body>
+</html>

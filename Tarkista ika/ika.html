@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React getting started</title>
+  </head>
+  <body>
+    <!-- Root container for react components -->
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+    <script type="text/babel">
+      function Ika() {
+        const [ika, setIka] = React.useState({ ika: "" });
+
+        return (
+          <div>
+            <div>
+              <input
+                name="ika"
+                type="number"
+                value={ika}
+                onChange={(e) => setIka(e.target.value)}
+                />
+            </div>
+            <div>
+              <button onClick={() => <div>("Olet " + ika + " vuotta vanha")}>
+                Send </button>
+
+            </div>
+
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(
+        <div>
+          <Ika />
+        </div>
+      );
+    </script>
+  </body>
+</html>
