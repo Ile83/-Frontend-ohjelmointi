@@ -49,12 +49,11 @@
         };
 
         const toggleShowAnswer = () => {
-          setShowAnswer(!showAnswer);
+          setShowAnswer(!showAnswer); // toggle showAnswer tilaa False -> True https://stackoverflow.com/questions/73565639/how-to-show-or-toggle-text-when-i-click-on-button-in-react-native
         };
 
         return (
-          // kysymyksen näyttäminen on huonosti toteutettu, koska se saattaa olla vaarallista, käytin apuna dangerouslySetInnerHTML -ominaisuutta ja
-          //ohjelmassa on toinenkin ongelma, joka on se, että kysymyksen hakeminen ei toimi montaa kertaa, koska apille lähtee pyyntö, joka painalluksesta ja tämä
+          //ohjelmassa on ongelma, joka on se, että kysymyksen hakeminen ei toimi montaa kertaa, koska apille lähtee pyyntö, joka painalluksesta ja tämä
           //kuormittaa apia, jolloin jossain vaiheessa tulee 429 status code, joka tarkoittaa, että pyyntöjä on liikaa
           //apuna olen käyttänyt tässä tehtävässä luentomateriaaleja, https://www.w3schools.com/, sekä ChatGpt:tä, joka on auttanut minua ymmärtämään asioita paremmin. Ohjelma pitäisi koodata
           //muotoon, että se hakee 10 kapaletta kysymyksiä ja näyttää ne käyttäjälle, joka painaa nappia, jolloin kysymys vaihtuu, jolloin api kutsuja tulee 10 kertaa
@@ -76,6 +75,7 @@
           </div>
           //ohjelmassa vaikuttaisi olevan myös bugi, jota en ymmärrä, kysymys näkyy aluksi, mutta vaikka en paina nappia, niin kysymys katoaa ja ikään kuin api kuormittuisi ja kysymys katoaa, vaikka olen sen hetken nähnyt. Välillä toimii moitteetta.
           //Bugi saattaa liitty liveserveriin, joka ei toimi aina moitteetta. Refreshaamalla sivun, kysymys tulee takaisin välillä.
+          //https://www.w3schools.com/react/react_es6_ternary.asp
         );
       }
 
