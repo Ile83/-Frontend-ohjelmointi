@@ -1,5 +1,7 @@
 // Import useState from react
 import { useState } from "react";
+import TodoTable from "./TodoTable";
+
 
 
 
@@ -50,34 +52,13 @@ const handleSubmit = (event) => {
   <input type="text" onChange={handleDateChange} value={date}/>
   <input type="submit" value="Add"/>
 </form>
-     
-      <table>
-        <thead>
-            <tr>
-            <th>Päivämäärä</th>
-            <th>Kuvaus</th>
-            </tr>
-        </thead>
+<TodoTable todos={todos} handleDeleteChange={handleDeleteChange}/> 
 
-      <tbody>
-        {todos.map((todo, index) => (
-          <tr key={index}>
-           
-            <td>{todo.date}</td>
-           
-         
-            <td>{todo.desc}</td>
-           
-            <td><button onClick={() => {handleDeleteChange(index) } }>Poista</button></td>
-         
-          </tr>
-        ))}
-      </tbody>
-    </table>
       </>
     );
   }
   
   export default TodoList
 
-  //käytin työssäni apuna luentomateriaaleja. aikaisempia tehtäviä, github copilottia /explain ja chatgpt:tä bugien etsintää. Vaatisi hieman .css tiedoston muokkausta. Ei ole nätin näköinen, mutta toimii.
+  //käytin työssäni apuna luentomateriaaleja. aikaisempia tehtäviä, github copilottia /explain ja chatgpt:tä bugien etsintää. Vaatisi hieman .css tiedoston muokkausta. Ei ole nätin näköinen, mutta toimii
+  /* tekoäly ehdottaa <TodoTable todos={this.state.todos} handleDeleteChange={this.handleDeleteChange} mitä eroa tällä käytännössä on kun toimii kuitenkin tekemälläni tavalla, jonka luin luentomateriaaleista? Olen miettinyt tätä this sanaa aikaiseeminkin koodauksessa mutta se ei ole täysin auennut*/
