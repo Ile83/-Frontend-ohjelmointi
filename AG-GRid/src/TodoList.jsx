@@ -72,12 +72,13 @@ const handleSubmit = (event) => {
     return(
       <>
     <form onSubmit={handleSubmit}>
-  <input placeholder="Description"  type="text" onChange={handleDescChange} value={desc}/>
-  <input placeholder="Priority" type="text" onChange={handlePriorityChange} value={priority}/>
-  <input placeholder="Date" type="date" onChange={handleDateChange} value={date}/>
-  <input type="submit" value="Add"/>
+  <input  placeholder="Description"  type="text" onChange={handleDescChange} value={desc}/>
+  <input  placeholder="Priority" type="text" onChange={handlePriorityChange} value={priority}/>
+  <input  placeholder="Date" type="date" onChange={handleDateChange} value={date}/>
+  <input  type="submit" value="Add"/>
+  <button className="form-control" onClick={() => {handleDeleteChange() } }>Delete</button>
 </form>
-<button onClick={() => {handleDeleteChange() } }>Delete</button>
+
 
 
 

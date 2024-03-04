@@ -2,6 +2,9 @@ import React from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css"; // Material Design theme
+
+import "./custom.css"; // Your custom styles
+
 import { useRef} from 'react'
 
 function TodoTable(props) {
