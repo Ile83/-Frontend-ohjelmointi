@@ -76,7 +76,7 @@ const handleSubmit = (event) => {
   <input  placeholder="Priority" type="text" onChange={handlePriorityChange} value={priority}/>
   <input  placeholder="Date" type="date" onChange={handleDateChange} value={date}/>
   <input  type="submit" value="Add"/>
-  <button className="form-control" onClick={() => {handleDeleteChange() } }>Delete</button>
+  <input   type="button" onClick={() => {handleDeleteChange() } } value="Delete"/>
 </form>
 
 
